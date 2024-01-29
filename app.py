@@ -117,5 +117,6 @@ def get_data():
         f"<p>Status: {response.status_code}</p>"
         f"<p>Body: {response.raw}</p>"
     )
+
 if __name__ == "__main__":
     app.run(port=LOCAL_PORT)
