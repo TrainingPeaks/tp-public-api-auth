@@ -27,6 +27,7 @@ REDIRECT_URI = f"{LOCAL_URL}/callback"
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
+
 def get_authorization_link():
     """Get the HTML link to initialize Authorization"""
     auth_url = (
@@ -36,6 +37,7 @@ def get_authorization_link():
         f"&scope={SCOPES}"
     )
     return f'<a href="{auth_url}">Authorize</a>'
+
 
 def get_access_token():
     """Use the Authoization Code to get an Access Token"""
@@ -58,6 +60,7 @@ def get_access_token():
     session["access_token_expire"] = time.time() + TOKEN_REFRESH_INTERVAL
     return True
 
+
 def session_has_valid_token():
     """Get a Boolean representing whether the session contains a valid token"""
     if "access_token" not in session:
@@ -67,6 +70,7 @@ def session_has_valid_token():
     if session["access_token_expire"] < time.time():
         return False
     return True
+
 
 @app.route("/")
 def home():
@@ -87,8 +91,7 @@ def callback():
             "inbound traffic is permitted on the configured local port"
             "</p>"
         )
-    access_token = request.args.get("code")
-    session["authorization_code"] = access_token
+    session["authorization_code"] = request.args.get("code")
     return (
         f"<h3>Access Token Generated Successfully!</h3>"
         f'<a href="{LOCAL_URL}/get-data">Make Example Call</a>'
@@ -105,7 +108,7 @@ def get_data():
             return (
                 "<h3>Token Generation Failed</h3>"
                 "<p>"
-                "Please double check the token_url in the config"
+                "Please double check the token_url and credentials in the config"
                 "</p>"
             )
     headers = {"Authorization": f"Bearer {session['access_token']}"}
@@ -117,6 +120,7 @@ def get_data():
         f"<p>Status: {response.status_code}</p>"
         f"<p>Body: {response.raw}</p>"
     )
+
 
 if __name__ == "__main__":
     app.run(port=LOCAL_PORT)
