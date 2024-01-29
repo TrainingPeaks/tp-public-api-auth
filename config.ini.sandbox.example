@@ -1,0 +1,13 @@
+[oauth]
+client_id = my-client-id
+client_secret = my-secret-key
+authorization_url = https://oauth.sandbox.trainingpeaks.com/OAuth/Authorize
+token_url = https://oauth.sandbox.trainingpeaks.com/OAuth/Token
+scopes = coach:athletes
+token_expire_sec = 300
+
+[server]
+local_port = 8080
+
+[test]
+test_url = https://api.sandbox.trainingpeaks.com/v1/coach/athletes
