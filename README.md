@@ -10,9 +10,9 @@ This Python module provides a basic implementation of OAuth 2.0 for interfacing 
 
 ## Installation
 Clone the repository and install the required Python packages.
-`git clone git@github.com:TrainingPeaks/tp-public-api-auth.git`
-`cd tp-public-api-auth`
-`pip install -r requirements.txt`
+- `git clone git@github.com:TrainingPeaks/tp-public-api-auth.git`
+- `cd tp-public-api-auth`
+- `pip install -r requirements.txt`
 
 ## Configuration
 The module uses a `config.ini` file for configuration. Two example configuration files are provided:
@@ -21,11 +21,11 @@ The module uses a `config.ini` file for configuration. Two example configuration
 
 To configure the application:
 1. Copy the appropriate example configuration file to `config.ini`.
-`cp config.ini.prod.example config.ini`
+- `cp config.ini.prod.example config.ini`
 or
-`cp config.ini.sandbox.example config.ini`
+- `cp config.ini.sandbox.example config.ini`
 
-2. Edit `config.ini` to include your `client_id`, `client_secret`, and `scopes`, and configure the example URL 
+2. Edit `config.ini` to include your `client_id`, `client_secret`, and `scopes` as well as the `test_url` if needed. 
 
 ## Usage
 The module allows you to:
