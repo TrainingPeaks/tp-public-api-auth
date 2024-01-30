@@ -1,29 +1,36 @@
 """Module providing a basic OAuth2.0 implementation for use with TrainingPeaks Public API"""
+import sys
+import os
 import configparser
 import json
-import os
 import time
 import requests
 from requests.auth import HTTPBasicAuth
 from flask import Flask, request, session
-from status import Status
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from app.status import Status
 
 # Read configuration
+project_root = os.path.abspath(os.path.dirname(__file__))
+config_path = os.path.join(project_root, 'config', 'config.ini')
 config = configparser.ConfigParser()
-config.read("config.ini")
+config.read("config/config.ini")
 
+#Local Server Config
+LOCAL_PORT = config["server"]["local_port"]
+LOCAL_URL = f"http://localhost:{LOCAL_PORT}"
+
+#OAuth Config
 CLIENT_ID = config["oauth"]["client_id"]
 CLIENT_SECRET = config["oauth"]["client_secret"]
 AUTHORIZATION_URL = config["oauth"]["authorization_url"]
 TOKEN_URL = config["oauth"]["token_url"]
 SCOPES = config["oauth"]["scopes"]
 TOKEN_REFRESH_INTERVAL = int(config["oauth"]["token_expire_sec"])
-
-LOCAL_PORT = config["server"]["local_port"]
-AUTHORIZED_URL = config["test"]["test_url"]
-
-LOCAL_URL = f"http://localhost:{LOCAL_PORT}"
 REDIRECT_URI = f"{LOCAL_URL}/callback"
+
+#Test Data Config
+AUTHORIZED_URL = config["test"]["test_url"]
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -326,6 +333,3 @@ def get_data():
 
 if __name__ == "__main__":
     app.run(port=LOCAL_PORT)
-    session["authorization_code_request_status"] = Status.NOT_RUN.value
-    session["token_code_request_status"] = Status.NOT_RUN.value
-    session["test_data_request_status"] = Status.NOT_RUN.value

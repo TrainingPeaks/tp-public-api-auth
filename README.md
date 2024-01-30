@@ -20,10 +20,10 @@ The module uses a `config.ini` file for configuration. Two example configuration
 - `config.ini.sandbox.example` for sandbox/testing
 
 To configure the application:
-1. Copy the appropriate example configuration file to `config.ini`.
-- `cp config.ini.prod.example config.ini`
+1. Copy the appropriate example configuration file to `config/config.ini`.
+- `cp config/config.ini.prod.example config/config.ini`
 or
-- `cp config.ini.sandbox.example config.ini`
+- `cp config/config.ini.sandbox.example config/config.ini`
 
 2. Edit `config.ini` to include your `client_id`, `client_secret`, and `scopes` as well as the `test_url` if needed. 
 
@@ -35,8 +35,12 @@ The module allows you to:
 
 ## Running the Application
 To run the application, use the following command:
-`python app.py`
+`python app/main.py`
 The application will start a local server (default port 8080), where you can interact with the OAuth2.0 implementation.
+
+## Testing the Application
+To run the application tests, use the following command:
+`python test/test_main.py`
 
 ## Endpoints
 - `/`: The home page, which provides the authorization link.

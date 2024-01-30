@@ -10,3 +10,4 @@ MarkupSafe==2.1.4
 requests==2.31.0
 urllib3==2.1.0
 Werkzeug==3.0.1
+Flask-Testing==0.8.1
