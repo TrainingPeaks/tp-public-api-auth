@@ -40,8 +40,10 @@ The application will start a local server (default port 8080), where you can int
 
 ## Endpoints
 - `/`: The home page, which provides the authorization link.
-- `/callback`: The callback endpoint for handling the response from TrainingPeaks.
-- `/get-data`: An example endpoint that makes an authorized API call using the obtained token.
+- `/callback`: The callback endpoint which will be called once TrainingPeaks has been authorized
+- `/get-token`: Get a token using the Authorization Code supplied by the `/callback` endpoint
+- `/refresh-token`: Refresh the token using the Refresh Token supplied from `get-token` endpoint
+- `/get-test-data`: Get the test data using the Token provide by `get-token` or `refresh-token`
 
 ## Contributing
 Contributions to the project are welcome. Please ensure that your code adheres to the project's standards and submit a pull request for review.
