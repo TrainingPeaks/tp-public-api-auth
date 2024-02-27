@@ -3,11 +3,6 @@
 ## Introduction
 This Python module provides a basic implementation of OAuth 2.0 for interfacing with the TrainingPeaks Public API. It allows users to authenticate, receive access tokens, and make authorized API calls.
 
-## Requirements
-- Python 3.x
-- Flask
-- Requests
-
 ## Installation
 Clone the repository and install the required Python packages.
 - `git clone git@github.com:TrainingPeaks/tp-public-api-auth.git`
@@ -25,7 +20,7 @@ To configure the application:
 or
 - `cp config/config.ini.sandbox.example config/config.ini`
 
-2. Edit `config.ini` to include your `client_id`, `client_secret`, and `scopes` as well as the `test_url` if needed. 
+1. Edit `config.ini` to include your `client_id`, `client_secret`, and `scopes`. 
 
 ## Usage
 The module allows you to:
@@ -40,7 +35,7 @@ The application will start a local server (default port 8080), where you can int
 
 ## Testing the Application
 To run the application tests, use the following command:
-`python test/test_main.py`
+`pytest`
 
 ## Endpoints
 - `/`: The home page, which provides the authorization link.
