@@ -111,4 +111,4 @@ def test_render_after_token_acquisition(html_renderer, mock_state):
     mock_state.token_code_response.is_token_expired = MagicMock(return_value=False)
     rendered_html = html_renderer.render()
     assert "Make Example Call" in rendered_html
-    assert "get-test-data" in rendered_html
+    assert "get-test-data45695456" in rendered_html
