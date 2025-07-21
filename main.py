@@ -11,6 +11,8 @@ from services.public_api import (
     GetTokenResponse,
     ListAthleteRequest,
     ListAthleteResponse,
+    AthleteProfileRequest,
+    AthleteProfileResponse,
     RefreshTokenRequest,
 )
 
@@ -102,20 +104,46 @@ def get_data():
         html_renderer.set_token_expired_exception()
         return html_renderer.render()
 
-    response: ListAthleteResponse = ListAthleteRequest().execute(
-        config.public_api.list_athletes_endpoint,
+    response: AthleteProfileResponse = AthleteProfileRequest().execute(
+        config.public_api.athlete_profile_endpoint,
         html_renderer.state.token_code_response.access_token,
     )
 
     if response:
         html_renderer.clear_exceptions()
-        html_renderer.state.list_athletes_request_status = Status.SUCCESS.value
-        html_renderer.state.list_athletes_response = response
+        html_renderer.state.athlete_profile_request_status = Status.SUCCESS.value
+        html_renderer.state.athlete_profile_response = response
     else:
-        html_renderer.state.list_athletes_request_status = Status.FAILURE.value
-        html_renderer.set_list_athlete_exception(response.status_code, response.message)
+        html_renderer.state.athlete_profile_request_status = Status.FAILURE.value
+        html_renderer.set_athlete_profile_exception(response.status_code, response.message)
     return html_renderer.render()
 
+# """Makes a GET request using the obtained token"""
+    # if (
+    #     not html_renderer.state.is_authorization_complete()
+    #     or not html_renderer.state.is_token_complete()
+    # ):
+    #     return html_renderer.render()
+    #
+    # if html_renderer.state.token_code_response.is_token_expired():
+    #     html_renderer.state.token_code_request_status = Status.EXPIRED.value
+    #     html_renderer.set_token_expired_exception()
+    #     return html_renderer.render()
+    #
+    # response: ListAthleteResponse = ListAthleteRequest().execute(
+    #     config.public_api.list_athletes_endpoint,
+    #     html_renderer.state.token_code_response.access_token,
+    # )
+    #
+    # if response:
+    #     html_renderer.clear_exceptions()
+    #     html_renderer.state.list_athletes_request_status = Status.SUCCESS.value
+    #     html_renderer.state.list_athletes_response = response
+    # else:
+    #     html_renderer.state.list_athletes_request_status = Status.FAILURE.value
+    #     html_renderer.set_list_athlete_exception(response.status_code, response.message)
+    # return html_renderer.render()
+    #
 
 if __name__ == "__main__":
     app.run(port=config.server.local_port)

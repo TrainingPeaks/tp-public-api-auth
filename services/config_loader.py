@@ -22,6 +22,7 @@ class ServerConfig:
 @dataclass
 class PublicApiConfig:
     list_athletes_endpoint: str
+    athlete_profile_endpoint: str
 
 class Config:
     def __init__(self, config_file: str = "./config/config.ini") -> None:
@@ -41,5 +42,6 @@ class Config:
         )
 
         self.public_api: PublicApiConfig = PublicApiConfig(
-            list_athletes_endpoint = config["public_api"]["list_athletes_endpoint"]
+            list_athletes_endpoint = config["public_api"]["list_athletes_endpoint"],
+            athlete_profile_endpoint = config["public_api"]["athlete_profile_endpoint"],
         )

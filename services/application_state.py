@@ -6,6 +6,7 @@ from enum import Enum
 from services.public_api import (
     AuthorizationCodeResponse,
     GetTokenResponse,
+    AthleteProfileResponse,
     ListAthleteResponse,
 )
 
@@ -34,6 +35,11 @@ class ApplicationState:
     list_athletes_response: ListAthleteResponse = field(
         default_factory=ListAthleteResponse
     )
+    # Athlete Profile
+    athlete_profile_request_status: str = Status.NOT_RUN.value
+    athlete_profile_response: AthleteProfileResponse = field(
+        default_factory=AthleteProfileResponse
+    )
     # Exception
     exception_text: str = None
 
@@ -45,3 +51,6 @@ class ApplicationState:
 
     def is_list_athletes_complete(self) -> bool:
         return self.list_athletes_request_status == Status.SUCCESS.value
+
+    def is_athlete_profile_complete(self) -> bool:
+        return self.athlete_profile_request_status == Status.SUCCESS.value

@@ -64,6 +64,18 @@ class HtmlRenderer:
             return f'<a href="{self.config.server.get_local_url()}/get-test-data">Make Example Call</a>'
         return self.state.list_athletes_response.data
 
+    def get_athlete_profile_value(self):
+        """Get a HTML Link to Athlete Profile endpoint"""
+        if not self.state.is_authorization_complete():
+            return ""
+        if not self.state.is_token_complete():
+            return ""
+        if self.state.token_code_response.is_token_expired():
+            return "Token Expired, Refresh Token."
+        if not self.state.is_athlete_profile_complete():
+            return f'<a href="{self.config.server.get_local_url()}/get-test-data">Make Example Call</a>'
+        return self.state.athlete_profile_response.data
+
     def set_authorization_exception(self):
         self.state.exception_text = (
         "<h3>Authorization Falied.</h3>"
@@ -92,6 +104,13 @@ class HtmlRenderer:
     def set_list_athlete_exception(self, status_code, body):
         self.state.exception_text = (
             f"<h3>List Athlete Request Failed</h3>"
+            f"<p>Status: {status_code}</p>"
+            f"<p>Body: {body}</p>"
+        )
+
+    def set_athlete_profile_exception(self, status_code, body):
+        self.state.exception_text = (
+            f"<h3>Athlete Profile Request Failed</h3>"
             f"<p>Status: {status_code}</p>"
             f"<p>Body: {body}</p>"
         )
@@ -159,6 +178,11 @@ class HtmlRenderer:
                             <td>List Athletes Request</td>
                             <td>{self.state.list_athletes_request_status}</td>
                             <td>{self.get_list_athletes_value()}</td>
+                        </tr>
+                        <tr>
+                            <td>Athlete Profile Request</td>
+                            <td>{self.state.athlete_profile_request_status}</td>
+                            <td>{self.get_athlete_profile_value()}</td>
                         </tr>
                     </table>
                 </body>

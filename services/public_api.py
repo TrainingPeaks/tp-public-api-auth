@@ -76,3 +76,28 @@ class ListAthleteRequest:
             status_code = response.status_code,
             message = response.raw
         )
+
+@dataclass
+class AthleteProfileResponse:
+    data: str = ""
+    status_code: int = -1
+    message: str = ""
+
+
+@dataclass
+class AthleteProfileRequest:
+    def execute(self, athlete_profile_url: str, access_token: str) -> AthleteProfileResponse:
+        response: requests.Response = requests.get(
+            athlete_profile_url,
+            headers={"Authorization": f"Bearer {access_token}"},
+            timeout=120
+        )
+
+        if not response.ok:
+          print(response)
+
+        return None if not response.ok else AthleteProfileResponse(
+            data = json.dumps(response.json(), indent=4),
+            status_code = response.status_code,
+            message = response.raw
+        )
