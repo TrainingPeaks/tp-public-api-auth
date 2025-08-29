@@ -24,11 +24,17 @@ class GetTokenRequest:
     grant_type: str = "authorization_code"
 
     def execute(self, token_url: str, client_id: str, client_secret: str) -> GetTokenResponse:
+        body = {
+            "grant_type": self.grant_type,
+            "code": self.code,
+            "redirect_uri": self.redirect_uri,
+            "client_id": client_id,
+            "client_secret": client_secret,
+        }
         response: requests.Response = requests.post(
             token_url,
-            data=asdict(self),
+            data=body,
             headers={"Accept": "application/json"},
-            auth=HTTPBasicAuth(client_id, client_secret),
             timeout=120,
         )
         return None if not response.ok else GetTokenResponse(
