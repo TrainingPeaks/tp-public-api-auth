@@ -49,11 +49,16 @@ class RefreshTokenRequest:
     grant_type: str = "refresh_token"
 
     def execute(self, token_url, client_id, client_secret):
+        body = {
+            "grant_type": self.grant_type,
+            "refresh_token": self.refresh_token,
+            "client_id": client_id,
+            "client_secret": client_secret,
+        }
         response: requests.Response = requests.post(
             token_url,
-            data=asdict(self),
+            data=body,
             headers={"Accept": "application/json"},
-            auth=HTTPBasicAuth(client_id, client_secret),
             timeout=120,
         )
         return None if not response.ok else GetTokenResponse(
